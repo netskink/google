@@ -3,7 +3,11 @@
 #include <string.h>
 #include "hash.h"
 #include "io.h"
+#include "stack.h"
 #include "main.h"
+
+
+extern stack_t STACK;
 
 int main(int argc, char *argv[]) {
 
@@ -39,7 +43,14 @@ int main(int argc, char *argv[]) {
 
 
 	ReadFile(argv[1]);
-	
+
+	push(&STACK,"one");
+	push(&STACK,"two");
+	push(&STACK,"three");
+
+	printf("%s\n",pop(&STACK));
+	printf("%s\n",pop(&STACK));
+	printf("%s\n",pop(&STACK));
 
 	exit(iRC);
 
