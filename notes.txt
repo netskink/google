@@ -1,0 +1,11 @@
+The original file is unicode.  Rather than deal with unicode, I'll
+simply convert it to ascii.
+
+To convert from unicode to ascii:
+iconv -f utf-8 -t ascii -c  filename.in > filename.out
+
+
+To run gdb in full screen mode, use:
+gdb -tui <program name>
+
+

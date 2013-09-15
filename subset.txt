@@ -1,5 +1,5 @@
-﻿A
-A (named a in the English, and most commonly ä in other languages).
+A
+A (named a in the English, and most commonly  in other languages).
 
 Defn: The first letter of the English and of many other alphabets.
 The capital A of the alphabets of Middle and Western Europe, as also
@@ -9,12 +9,12 @@ the Greek Alpha, of the same form; and this was made from the first
 letter (Aleph, and itself from the Egyptian origin. The Aleph was a
 consonant letter, with a guttural breath sound that was not an
 element of Greek articulation; and the Greeks took it to represent
-their vowel Alpha with the ä sound, the Phoenician alphabet having no
+their vowel Alpha with the  sound, the Phoenician alphabet having no
 vowel symbols. This letter, in English, is used for several different
-vowel sounds. See Guide to pronunciation, §§ 43-74. The regular long
+vowel sounds. See Guide to pronunciation,  43-74. The regular long
 a, as in fate, etc., is a comparatively modern sound, and has taken
 the place of what, till about the early part of the 17th century, was
-a sound of the quality of ä (as in far).
+a sound of the quality of  (as in far).
 
 2. (Mus.)
 
@@ -26,7 +26,7 @@ in the treble staff.
 and B.
  -- A flat (A) is the name of a tone intermediate between A and G.
 
-A per se Etym: (L. per se by itself), one preëminent; a nonesuch.
+A per se Etym: (L. per se by itself), one preminent; a nonesuch.
 [Obs.]
 O fair Creseide, the flower and A per se Of Troy and Greece. Chaucer.
 
@@ -99,13 +99,13 @@ Defn: A, as a prefix to English words, is derived from various
 sources. (1) It frequently signifies on or in (from an, a forms of
 AS. on), denoting a state, as in afoot, on foot, abed, amiss, asleep,
 aground, aloft, away (AS. onweg), and analogically, ablaze, atremble,
-etc. (2) AS. of off, from, as in adown (AS. ofdüne off the dun or
+etc. (2) AS. of off, from, as in adown (AS. ofdne off the dun or
 hill). (3) AS. a- (Goth. us-, ur-, Ger. er-), usually giving an
 intensive force, and sometimes the sense of away, on, back, as in
 arise, abide, ago. (4) Old English y- or i- (corrupted from the AS.
 inseparable particle ge-, cognate with OHG. ga-, gi-, Goth. ga-),
 which, as a prefix, made no essential addition to the meaning, as in
-aware. (5) French à (L. ad to), as in abase, achieve. (6) L. a, ab,
+aware. (5) French  (L. ad to), as in abase, achieve. (6) L. a, ab,
 abs, from, as in avert. (7) Greek insep. prefix a without, or
 privative, not, as in abyss, atheist; akin to E. un-.
 
@@ -124,11 +124,11 @@ AAM
 Aam, n. Etym: [D. aam, fr. LL. ama; cf. L. hama a water bucket, Gr.
 
 Defn: A Dutch and German measure of liquids, varying in different
-cities, being at Amsterdam about 41 wine gallons, at Antwerp 36½, at
-Hamburg 38¼. [Written also Aum and Awm.]
+cities, being at Amsterdam about 41 wine gallons, at Antwerp 36, at
+Hamburg 38. [Written also Aum and Awm.]
 
 AARD-VARK
-Aard"-vark`, n. Etym: [D., earth-pig.] (Zoöl.)
+Aard"-vark`, n. Etym: [D., earth-pig.] (Zol.)
 
 Defn: An edentate mammal, of the genus Orycteropus, somewhat
 resembling a pig, common in some parts of Southern Africa. It burrows
@@ -136,7 +136,7 @@ in the ground, and feeds entirely on ants, which it catches with its
 long, slimy tongue.
 
 AARD-WOLF
-Aard"-wolf`, n. Etym: [D, earth-wolf] (Zoöl.)
+Aard"-wolf`, n. Etym: [D, earth-wolf] (Zol.)
 
 Defn: A carnivorous quadruped (Proteles Lalandii), of South Africa,
 resembling the fox and hyena. See Proteles.
@@ -203,7 +203,7 @@ Ab"a*cist, n. Etym: [LL abacista, fr. abacus.]
 Defn: One who uses an abacus in casting accounts; a calculator.
 
 ABACK
-A*back", adv. Etym: [Pref. a- + back; AS. on bæc at, on, or toward
+A*back", adv. Etym: [Pref. a- + back; AS. on bc at, on, or toward
 the back. See Back.]
 
 1. Toward the back or rear; backward. "Therewith aback she started."
@@ -225,7 +225,7 @@ Ab"ack, n.
 Defn: An abacus. [Obs.] B. Jonson.
 
 ABACTINAL
-Ab*ac"ti*nal, a. Etym: [L. ab + E. actinal.] (Zoöl.)
+Ab*ac"ti*nal, a. Etym: [L. ab + E. actinal.] (Zol.)
 
 Defn: Pertaining to the surface or end opposite to the mouth in a
 radiate animal; -- opposed to actinal. "The aboral or abactinal
@@ -289,7 +289,7 @@ In all her gates, Abaddon rues Thy bold attempt. Milton.
 
 ABAFT
 A*baft", prep. Etym: [Pref. a-on + OE. baft, baften, biaften, AS.
-beæftan; be by + æftan behind. See After, Aft, By.] (Naut.)
+beftan; be by + ftan behind. See After, Aft, By.] (Naut.)
 
 Defn: Behind; toward the stern from; as, abaft the wheelhouse. Abaft
 the beam. See under Beam.
@@ -333,7 +333,7 @@ Ab*al`ien*a"tion, n. Etym: [L. abalienatio: cf. F. abalianation.]
 Defn: The act of abalienating; alienation; estrangement. [Obs.]
 
 ABALONE
-Ab`a*lo"ne, n. (Zoöl.)
+Ab`a*lo"ne, n. (Zol.)
 
 Defn: A univalve mollusk of the genus Haliotis. The shell is lined
 with mother-of-pearl, and used for ornamental purposes; the sea-ear.
