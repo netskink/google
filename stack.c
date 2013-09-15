@@ -9,6 +9,12 @@
 stack_t  STACK;
 
 
+// returns zero when stack is empty
+int stack_not_empty(stack_t *ps) {
+    return (ps->size);
+}
+
+
 void push(stack_t *ps, char *buffer) {
 
     if (ps->size == STACKSIZE) {

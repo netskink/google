@@ -35,23 +35,26 @@ int main(int argc, char *argv[]) {
 	}
 
 
-	f("this",0);
-	f("this",0);
-	f("is",0);
-	f("a",0);
-	f("test",0);
+//	f("this",0);
+//	f("this",0);
+//	f("is",0);
+//	f("a",0);
+//	f("test",0);
 
 
 	ReadFile(argv[1]);
 
-	push(&STACK,"one");
-	push(&STACK,"two");
-	push(&STACK,"three");
+//	push(&STACK,"one");
+//	push(&STACK,"two");
+//	push(&STACK,"three");
 
-	printf("%s\n",pop(&STACK));
-	printf("%s\n",pop(&STACK));
-	printf("%s\n",pop(&STACK));
-
+//	printf("%s\n",pop(&STACK));
+//	printf("%s\n",pop(&STACK));
+//	printf("%s\n",pop(&STACK));
+	while (stack_not_empty(&STACK)) {
+		printf("main.c->%s",pop(&STACK));
+	}
+	
 	exit(iRC);
 
 }

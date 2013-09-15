@@ -3,16 +3,16 @@
 #include <stdio.h>
 #include <string.h>
 #include <sys/types.h>
-#include <regex.h>
 #include "parser.h"
 #include "main.h"
 
 
-int ProcessLine(char *line) {
+int ProcessLine(char *line, char *searchPattern) {
 
 	regex_t *preg;
 	int iRC;
 	char buffer[80]; 
+
 
 	preg = malloc(sizeof(regex_t));
 	if (NULL == preg) {
@@ -23,7 +23,8 @@ int ProcessLine(char *line) {
 	//iRC = regcomp(preg,"^[A-Z]+$",REG_NOSUB|REG_NEWLINE);
 	//iRC = regcomp(preg,"^[A-Z]+$",REG_EXTENDED|REG_NOSUB|REG_NEWLINE);
 	//iRC = regcomp(preg,"^[A-Z]+[[:space:]]$",REG_EXTENDED|REG_NOSUB);
-	iRC = regcomp(preg,"^[A-Z]+\\s",REG_EXTENDED|REG_NOSUB);
+	//iRC = regcomp(preg,"^[A-Z]+\\s",REG_EXTENDED|REG_NOSUB);
+	iRC = regcomp(preg,searchPattern,REG_EXTENDED|REG_NOSUB);
 	if (0 != iRC ) {
 		// regex compile failed.
 		return(-2);	
@@ -34,22 +35,23 @@ int ProcessLine(char *line) {
 	if (REG_NOMATCH == iRC ) {
 		// regexec failed to find a match
 		regerror (iRC, preg, buffer, 80);
-		printf("%s\n",buffer);
-		return(iRC);	
+		//printf("%s\n",buffer);
+		goto processline_cleanup;
 	} else  if (0 != iRC ) {
 		// regexec had some other error.
 		regerror (iRC, preg, buffer, 80);
 		printf("%s\n",buffer);
-		return(iRC);	
+		goto processline_cleanup;
 	} 
 
 	// A match was found
-	printf("%s",line);
+	//printf("%s",line);
 
+processline_cleanup:
 	regfree(preg);
 	free(preg);
 
-	return(0);
+	return(iRC);
 
 
 }

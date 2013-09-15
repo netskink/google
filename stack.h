@@ -10,6 +10,8 @@ struct stack {
 };
 typedef struct stack stack_t;
 
+int stack_not_empty(stack_t *ps);
+
 void push(stack_t *ps, char *buffer);
 
 char * pop(stack_t *ps);
