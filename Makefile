@@ -1,9 +1,17 @@
 
 
 TARGET = google
-LIBS = -lm
 CC = gcc
-CFLAGS = -g -Wall
+
+# Debug Flags
+#CFLAGS = -g -Wall -pg
+#LFLAGS = -g -Wall -pg
+#LIBS = -lm
+
+# Profile Flags
+CFLAGS = -g -Wall -pg
+LFLAGS = -pg 
+
 
 .PHONY: default all clean
 
@@ -19,7 +27,7 @@ HEADERS = $(wildcard *.h)
 .PRECIOUS: $(TARGET) $(OBJECTS)
 
 $(TARGET): $(OBJECTS)
-	$(CC) $(OBJECTS) -Wall $(LIBS) -o $@
+	$(CC) -o $@ $(OBJECTS) $(LFLAGS) $(LIBS) 
 
 clean:
 	-rm -f *.o

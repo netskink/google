@@ -8,4 +8,9 @@ iconv -f utf-8 -t ascii -c  filename.in > filename.out
 To run gdb in full screen mode, use:
 gdb -tui <program name>
 
+To dump the file in hex.
+od -A x -t x1z -v tiny.txt
+
+oprofile package or gprof
+
 

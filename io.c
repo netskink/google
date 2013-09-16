@@ -55,7 +55,7 @@ void ReadFile(char *filename) {
 
 		if (LOOKFORDEFNCONT == current_state) {
 			// look for a word with a definition
-			iRC = ProcessLine(buffer, "[A-Za-z.,()]+");
+			iRC = ProcessLine(buffer, "[&A-Za-z.,()/[/]]+");
 			if (0 == iRC) {
 				// it found the start of the definition
 				// put it on stack
@@ -65,19 +65,16 @@ void ReadFile(char *filename) {
 				// it has found all of the definition
 				// pop the entire stack for now
 				current_state = LOOKFORWORD;
-				while (stack_not_empty(&STACK)) {
-					printf("io.c->%s\n",pop(&STACK));
-				}
+				buildWordEntry();
+				//while (stack_not_empty(&STACK)) {
+			//		printf("io.c->%s\n",pop(&STACK));
+			//	}
 			}
 			continue;
 		}
-#ifdef thomas
-#endif
 
-		//printf("iRC = ProcessLine() is %d\n",iRC);
 
-//		printf("%s",buffer);
-	}
+	} /* end of while loop */
 	fclose(fd);
 }
 
