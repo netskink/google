@@ -10,12 +10,14 @@
 
 extern stack_t STACK;
 
-enum steps {LOOKFORWORD,LOOKFORDEFN,LOOKFORDEFNCONT};
+enum steps {LOOKFORWORD,
+			LOOKFORDEFN,
+			LOOKFORDEFNCONT};
 
 void ReadFile(char *filename) {
 
 	FILE *fd;
-	char buffer[1024];
+	char buffer[256];
 	int iRC;
 	enum steps current_state = LOOKFORWORD;
 
@@ -31,7 +33,8 @@ void ReadFile(char *filename) {
 
 		if (LOOKFORWORD == current_state) {
 			// look for a word with a definition
-			iRC = ProcessLine(buffer, "^[A-Z]+\\s");
+			//iRC = ProcessLine(buffer, "^[A-Z;']+-*[A-Z]*\\s");
+			iRC = ProcessLine(buffer, "^[A-Z]+\\s\\s$");
 			if (0 == iRC) {
 				// it found a definition word
 				// put it on stack
@@ -43,7 +46,7 @@ void ReadFile(char *filename) {
 
 		if (LOOKFORDEFN == current_state) {
 			// look for a word with a definition
-			iRC = ProcessLine(buffer, "^Defn:");
+			iRC = ProcessLine(buffer, "^Defn:|^1");
 			if (0 == iRC) {
 				// it found the start of the definition
 				// put it on stack
@@ -55,7 +58,8 @@ void ReadFile(char *filename) {
 
 		if (LOOKFORDEFNCONT == current_state) {
 			// look for a word with a definition
-			iRC = ProcessLine(buffer, "[&A-Za-z.,()/[/]]+");
+			//iRC = ProcessLine(buffer, "[&A-Za-z.,()/[/]]+");
+			iRC = ProcessLine(buffer, "[A-Za-z]+");
 			if (0 == iRC) {
 				// it found the start of the definition
 				// put it on stack

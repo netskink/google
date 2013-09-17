@@ -23,17 +23,12 @@ int ProcessLine(char *line, char *searchPattern) {
 		return(-1);	
 	}
 
-	//iRC = regcomp(preg,"^[A-Z]+$",REG_NOSUB|REG_NEWLINE);
-	//iRC = regcomp(preg,"^[A-Z]+$",REG_EXTENDED|REG_NOSUB|REG_NEWLINE);
-	//iRC = regcomp(preg,"^[A-Z]+[[:space:]]$",REG_EXTENDED|REG_NOSUB);
-	//iRC = regcomp(preg,"^[A-Z]+\\s",REG_EXTENDED|REG_NOSUB);
 	iRC = regcomp(preg,searchPattern,REG_EXTENDED|REG_NOSUB);
 	if (0 != iRC ) {
 		// regex compile failed.
 		return(-2);	
 	}
 
-	//iRC = regexec(preg,line,0,NULL,REG_NOTEOL);
 	iRC = regexec(preg,line,0,NULL,0);
 	if (REG_NOMATCH == iRC ) {
 		// regexec failed to find a match

@@ -12,6 +12,8 @@ extern stack_t STACK;
 int main(int argc, char *argv[]) {
 
 	int iRC;
+	int i;
+	char buf[25];
 //	char *str1, *token;
 //	char *str2, *subtoken;
 //	char *saveptr1;
@@ -40,6 +42,11 @@ int main(int argc, char *argv[]) {
 //	f("is",0);
 //	f("a",0);
 //	f("test",0);
+
+//	for(i=0;i<26;i++) {
+//		sprintf(buf,"%d",i);
+//		push(&STACK,buf);
+//	}
 
 
 	ReadFile(argv[1]);
