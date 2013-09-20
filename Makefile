@@ -4,13 +4,13 @@ TARGET = google
 CC = gcc
 
 # Debug Flags
-#CFLAGS = -g -Wall -pg
-#LFLAGS = -g -Wall -pg
-#LIBS = -lm
+CFLAGS = -g -Wall
+LFLAGS = -g -Wall
+LIBS = -lm
 
 # Profile Flags
-CFLAGS = -g -Wall -pg
-LFLAGS = -pg 
+#CFLAGS = -g -Wall -pg
+#LFLAGS = -pg 
 
 
 .PHONY: default all clean

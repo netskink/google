@@ -1,2 +1,2 @@
 
-void ReadFile(char *filename);
+int ReadFile(char *filename);

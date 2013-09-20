@@ -2,10 +2,11 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include <string.h>
-#include "io.h"
-#include "parser.h"
-#include "stack.h"
 #include "main.h"
+#include "parser.h"
+#include "io.h"
+#include "hash.h"
+#include "stack.h"
 
 
 extern stack_t STACK;
@@ -14,16 +15,17 @@ enum steps {LOOKFORWORD,
 			LOOKFORDEFN,
 			LOOKFORDEFNCONT};
 
-void ReadFile(char *filename) {
+int  ReadFile(char *filename) {
 
 	FILE *fd;
 	char buffer[256];
 	int iRC;
 	enum steps current_state = LOOKFORWORD;
+	word_entry_t *pWORDENTRY; 
 
 	fd =  fopen(filename, "r");
 	if (NULL == fd) {
-		return;
+		return (-1);
 	}
 
 	while (NULL != fgets(buffer,1024,fd)) {
@@ -46,6 +48,7 @@ void ReadFile(char *filename) {
 
 		if (LOOKFORDEFN == current_state) {
 			// look for a word with a definition
+			//iRC = ProcessLine(buffer, "^Defn:|^1");
 			iRC = ProcessLine(buffer, "^Defn:|^1");
 			if (0 == iRC) {
 				// it found the start of the definition
@@ -69,17 +72,23 @@ void ReadFile(char *filename) {
 				// it has found all of the definition
 				// pop the entire stack for now
 				current_state = LOOKFORWORD;
-				buildWordEntry();
+
+				pWORDENTRY = malloc(sizeof(word_entry_t));
+				if (NULL == pWORDENTRY) {
+					return (-2);
+				}
+				buildWordEntry(pWORDENTRY); 
+				f(pWORDENTRY->word,0x10000);
 				//while (stack_not_empty(&STACK)) {
 			//		printf("io.c->%s\n",pop(&STACK));
 			//	}
 			}
-			continue;
 		}
 
 
 	} /* end of while loop */
 	fclose(fd);
+	return(0);
 }
 
 

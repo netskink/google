@@ -12,8 +12,8 @@ extern stack_t STACK;
 int main(int argc, char *argv[]) {
 
 	int iRC;
-	int i;
-	char buf[25];
+//	int i;
+//	char buf[25];
 //	char *str1, *token;
 //	char *str2, *subtoken;
 //	char *saveptr1;
