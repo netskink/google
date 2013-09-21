@@ -39,12 +39,11 @@ int main(int argc, char *argv[]) {
 	}
 
 
-	test_list();
 	
 #ifdef thomas
 #endif	
 
-//	ReadFile(argv[1]);
+	ReadFile(argv[1]);
 
 	// Stack final check.  This code should never print anything.
 	while (stack_not_empty(&STACK)) {
