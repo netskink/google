@@ -2,8 +2,10 @@
 #include <stdio.h>
 #include <string.h>
 #include "hash.h"
+#include "list.h"
 #include "io.h"
 #include "stack.h"
+#include "unit.h"
 #include "main.h"
 
 
@@ -12,7 +14,6 @@ extern stack_t STACK;
 int main(int argc, char *argv[]) {
 
 	int iRC;
-//	int i;
 //	char buf[25];
 //	char *str1, *token;
 //	char *str2, *subtoken;
@@ -22,6 +23,7 @@ int main(int argc, char *argv[]) {
 	
 //	char **words;
 //	int word_cnt;
+
 
 	//printf("argc = %d\n",argc);
 	iRC=EXIT_SUCCESS;
@@ -37,27 +39,14 @@ int main(int argc, char *argv[]) {
 	}
 
 
-//	f("this",0);
-//	f("this",0);
-//	f("is",0);
-//	f("a",0);
-//	f("test",0);
+	test_list();
+	
+#ifdef thomas
+#endif	
 
-//	for(i=0;i<26;i++) {
-//		sprintf(buf,"%d",i);
-//		push(&STACK,buf);
-//	}
+//	ReadFile(argv[1]);
 
-
-	ReadFile(argv[1]);
-
-//	push(&STACK,"one");
-//	push(&STACK,"two");
-//	push(&STACK,"three");
-
-//	printf("%s\n",pop(&STACK));
-//	printf("%s\n",pop(&STACK));
-//	printf("%s\n",pop(&STACK));
+	// Stack final check.  This code should never print anything.
 	while (stack_not_empty(&STACK)) {
 		printf("main.c->%s",pop(&STACK));
 	}
