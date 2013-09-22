@@ -14,27 +14,24 @@
 // of the extern keyword.
 extern stack_t STACK;
 
-enum steps {LOOKFORWORD,
-			LOOKFORDEFN,
-			LOOKFORDEFNCONT};
-typedef enum steps steps_t;
+
+// State machine function pointer type
+typedef int (*states_func_ptr_t) ( char *buffer, stack_t *pStack );
+// global (to this file) state machine function pointer variable
+static states_func_ptr_t next_state;
+
 
 // The protoypes for these routines are here since they are 
 // private to the implementation.
-steps_t look_for_word(char *buffer, stack_t *pStack, steps_t current_state);
-steps_t look_for_defn(char *buffer, stack_t *pStack, steps_t current_state); 
-steps_t look_for_defn_cont(char *buffer, stack_t *pStack, steps_t current_state); 
-
-
-// State machine function pointer
-steps_t (*states) ( char *buffer, stack_t *pStack, steps_t current_state);
+int look_for_word(char *buffer, stack_t *pStack);
+int look_for_defn(char *buffer, stack_t *pStack); 
+int look_for_defn_cont(char *buffer, stack_t *pStack); 
 
 
 int  ReadFile(char *filename) {
 
 	FILE *fd;
 	char buffer[256];
-	steps_t current_state;
 
 	fd =  fopen(filename, "r");
 	if (NULL == fd) {
@@ -42,45 +39,24 @@ int  ReadFile(char *filename) {
 	}
 
 	// Init the state machine
-	current_state = LOOKFORWORD;
-	states = look_for_word;
-
-
+	next_state = look_for_word;
 
 	while (NULL != fgets(buffer,1024,fd)) {
 
 		// Call the current function on the buffer
-		current_state = states(buffer,&STACK,current_state);
-
-		// Select the next function to call based
-		// on the new state.
-
-		switch(current_state) {
-		case LOOKFORWORD:
-			states = look_for_word;
-			break;
-		case LOOKFORDEFN:
-			states = look_for_defn;
-			break;
-		case LOOKFORDEFNCONT:
-			states = look_for_defn_cont;
-			break;
-		default:
-			// This should never be hit.
-			fprintf(stderr,"error in state machine.\n");
-			abort();
-
-		}
+		// in this case, next state is really the current state
+		// in the routines it will assign the next state
+		// to this function pointer
+		next_state(buffer,&STACK);
+	} 
 
 
-
-	} /* end of while loop */
 	fclose(fd);
 	return(0);
 }
 
 
-steps_t look_for_word(char *buffer, stack_t *pStack, steps_t current_state) {
+int look_for_word(char *buffer, stack_t *pStack) {
 
 	int iRC;
 
@@ -98,12 +74,12 @@ steps_t look_for_word(char *buffer, stack_t *pStack, steps_t current_state) {
 		// put it on stack and look for 
 		// the definition.
 		push(&STACK,buffer);
-		return (LOOKFORDEFN);
+		next_state = look_for_defn;
 	}
-	return (current_state);
+	return (0);
 }
 
-steps_t look_for_defn(char *buffer, stack_t *pStack, steps_t current_state) {
+int look_for_defn(char *buffer, stack_t *pStack) {
 
 	int iRC;
 
@@ -120,12 +96,12 @@ steps_t look_for_defn(char *buffer, stack_t *pStack, steps_t current_state) {
 
 		// put it on stack
 		push(&STACK,buffer);
-		return (LOOKFORDEFNCONT);
+		next_state = look_for_defn_cont;
 	}
-	return (current_state);
+	return (0);
 }
 
-steps_t look_for_defn_cont(char *buffer, stack_t *pStack, steps_t current_state) {
+int look_for_defn_cont(char *buffer, stack_t *pStack) {
 
 	int iRC;
 	word_entry_t *pWORDENTRY; 
@@ -134,19 +110,19 @@ steps_t look_for_defn_cont(char *buffer, stack_t *pStack, steps_t current_state)
 	//iRC = ProcessLine(buffer, "[&A-Za-z.,()/[/]]+");
 	iRC = ProcessLine(buffer, "[A-Za-z]+");
 	if (0 == iRC) {
-		// it found the start of the definition
+		// it found another line of the definition
 		// put it on stack
 		push(&STACK,buffer);
-		current_state = LOOKFORDEFNCONT;
+		next_state = look_for_defn_cont;
 	} else if (REG_NOMATCH == iRC) {
 		// it has found all of the definition
 		// pop the entire stack for now
-		current_state = LOOKFORWORD;
+		next_state = look_for_word;
 
 		pWORDENTRY = malloc(sizeof(word_entry_t));
 		if (NULL == pWORDENTRY) {
 			fprintf(stderr,"alloc error in look_for_defn_cont!\n");
-			abort();
+			return(-1);
 		}
 		buildWordEntry(pWORDENTRY); 
 		f(pWORDENTRY->word,0x10000);
@@ -157,5 +133,7 @@ steps_t look_for_defn_cont(char *buffer, stack_t *pStack, steps_t current_state)
 	//		printf("io.c->%s\n",pop(&STACK));
 	//	}
 	}
-	return (current_state);
+	return (0);
 }
+
+
