@@ -1,11 +1,11 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include <string.h>
+#include "main.h"
 #include "list.h"
 #include "hash.h"
 #include "io.h"
 #include "stack.h"
-#include "main.h"
 
 /*
 struct node {

@@ -8,7 +8,6 @@
 #include "parser.h"
 
 extern stack_t STACK;
-stack_t PRIVATE_STACK;
 
 int ProcessLine(char *line, char *searchPattern) {
 
@@ -51,84 +50,4 @@ processline_cleanup:
 
 	return (iRC);
 }
-
-int allocWordEntry(word_entry_t *pWORDENTRY) {
-
-	// The definition is at most the (stack size - 1) * 1024
-	pWORDENTRY->defn = malloc(sizeof(char)*1024*(STACK.size-1));
-	if (NULL == pWORDENTRY->defn) {
-		return (-1);
-	}
-	pWORDENTRY->defn[0] = 0; // Set initial string to ''
-
-	// Assume the defined word is 64 chars or less
-	pWORDENTRY->word = malloc(sizeof(char)*64);
-	if (NULL == pWORDENTRY->word) {
-		return (-2);
-	}
-	pWORDENTRY->defn[0] = 0; // Set initial string to ''
-	
-	// normal exit
-	return (0);
-}
-
-
-int buildWordEntry(word_entry_t *pWORDENTRY) {
-	char buffer[1024];
-	int len;
-
-	if (0 != allocWordEntry(pWORDENTRY) ) {
-		return(-1);
-	}
-
-	// A few ways come to mind with forming the definition.
-	// The problem is that the stack is in reverse order
-	// The defined word is at the bottom and the lines which make
-	// up the definition are in reverse order.
-	//
-	// method 1
-	// create a new stack and pop this one and put it on the other one.
-	// then pop them off in the proper order. probably the easiest.
-	//
-	// method 2
-	// find the strlen and then memmove the str to that offset in the buffer
-	//
-	// method 3
-	// reverse the stack operation to make it into a queue and pull from it 
-	// in order of how we can append the strings.
-
-
-
-	// Method 1, pop the stack and push on the new stack to build the
-	// word entry so that the definition word is on top.
-	while (STACK.size > 0) {
-		push(&PRIVATE_STACK, pop(&STACK));
-	}
-
-	// Now the defined word is on top of stack
-	strcpy(pWORDENTRY->word,pop(&PRIVATE_STACK));
-	len = strlen(pWORDENTRY->word);	
-	pWORDENTRY->word[len-2] = 0; // rub out the <cr> <lf> pair
-
-	// The first line of the definition has the words "Defn: " in it.
-	// copy it to the temp buffer and then copy it from an offset
-	// skipping this part.
-	strcpy(buffer,pop(&PRIVATE_STACK));
-	strcat(pWORDENTRY->defn,&buffer[6]);
-
-
-	// And the definition is multiple lines on the rest of the stack.
-	while (PRIVATE_STACK.size > 0) {
-		
-		strcat(pWORDENTRY->defn,pop(&PRIVATE_STACK));
-		len = strlen(pWORDENTRY->defn);	
-		pWORDENTRY->defn[len-2] = 0x20; // replace <cr><lf> pair with a space
-		pWORDENTRY->defn[len-1] = 0x0; // and null term shortened string
-	}
-	printf("word-> %s\n",pWORDENTRY->word);
-	printf("defn-> %s\n",pWORDENTRY->defn);
-
-	return (0);
-}
-
 

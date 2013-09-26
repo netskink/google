@@ -13,7 +13,7 @@ LIBS = -lm
 #LFLAGS = -pg 
 
 
-.PHONY: default all clean
+.PHONY: default all clean test
 
 default: $(TARGET)
 all: default
@@ -33,7 +33,8 @@ clean:
 	-rm -f *.o
 	-rm -f $(TARGET)
 
-
+test:
+	./$(TARGET) dictionary.txt
 
 
 

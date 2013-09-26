@@ -3,6 +3,7 @@
 #include <stdio.h>
 #include <string.h>
 #include "main.h"
+#include "list.h"
 #include "hash.h"
 #include "parser.h"
 
@@ -19,9 +20,21 @@
  * bc
  * obase=16
  */
-const int MAXNUM=0xFFFFF;
+#define MAXNUM_D 0xFFFFF
+const int MAXNUM=MAXNUM_D;
+
+// The hash table array.  Each entry in this array is a list.
+// word entries (word+definition) will be stored in the linked list of the
+// individual elements.  The elements are chosen by the index which
+// is a function of the hash of the definition word.
+static list_t *hash_table[MAXNUM_D];
 
 #ifdef STOCKVERSIONS
+/*
+ * These are the stock routines from wikipedia for making an 8bit CRC.
+ * I want to spread out my indexes to 16 bits so I tweaked it some so
+ * that I would not have such long linked lists.
+ */
 unsigned char calculateLRC(const unsigned char *buffer, unsigned int length){
 	unsigned char checksum = 0;
 	while(length--) checksum += *buffer++;
@@ -60,9 +73,73 @@ int f(char *key,int array_size) {
 	unsigned int index;
 	index = calculateLRC(key, strlen(key));
 
-	printf("index = %x\n",index);
+//	printf("index = %x\n",index);
 	index = index % array_size;
-	printf("modified index = %x\n\n",index);
+//	printf("modified index = %x\n\n",index);
 	return (index);
 }
+
+int init_hash_table(void) {
+	int i;
+	list_t *pList;
+
+	for(i=0;i<MAXNUM;i++) {
+		pList = init_list();
+		if (NULL == pList) {
+			fprintf(stderr, "error in list create.\n");
+			exit(-1);
+		}
+		hash_table[i]=pList;
+	}	
+
+	return (0);
+}
+
+int insert_word_into_hashtable(int index, word_entry_t *pWordEntry) {
+	append(hash_table[index],pWordEntry);
+	return (0);
+}
+
+int dump_hashtable(void) {
+	int i;
+	node_t *pNode;
+
+
+	for(i=0;i<MAXNUM;i++) {
+		pNode = hash_table[i]->pFirst;
+		if (NULL != pNode) {
+			printf("****  Words at hash index i = %x ******\n",i);
+			while(NULL != pNode) {
+				printf("list word => %s\n",((word_entry_t*) pNode->pData)->word);
+				printf("list defn => %s\n\n",((word_entry_t*) pNode->pData)->defn);
+				pNode = pNode->pNext;
+			}	
+		} 
+	}
+	return(0);
+}
+
+int lookupWordLower(char *pWord) {
+	int i;
+	node_t *pNode;
+	char *pPossibleWord;
+
+
+	i = f(pWord,0x10000);
+	pNode = hash_table[i]->pFirst;
+
+	if (NULL != pNode) {
+		while(NULL != pNode) {
+			pPossibleWord = (char *)((word_entry_t*) pNode->pData)->word;
+			if (0 == strcmp(pPossibleWord,pWord)) {
+				printf("word => %s\n",((word_entry_t*) pNode->pData)->word);
+				printf("defn => %s\n\n",((word_entry_t*) pNode->pData)->defn);
+				return (0);
+			} 
+			pNode = pNode->pNext;
+		}	
+	} 
+	return(1);
+}
+
 

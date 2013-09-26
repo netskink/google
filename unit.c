@@ -1,11 +1,11 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include <string.h>
+#include "main.h"
 #include "hash.h"
 #include "list.h"
 #include "io.h"
 #include "stack.h"
-#include "main.h"
 
 /*
  * These are primative unit tests.

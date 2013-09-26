@@ -3,6 +3,7 @@
 #include <stdio.h>
 #include <string.h>
 #include "main.h"
+#include "dictionary.h"
 #include "parser.h"
 #include "io.h"
 #include "hash.h"
@@ -124,8 +125,7 @@ int look_for_defn_cont(char *buffer, stack_t *pStack) {
 			fprintf(stderr,"alloc error in look_for_defn_cont!\n");
 			return(-1);
 		}
-		buildWordEntry(pWORDENTRY); 
-		f(pWORDENTRY->word,0x10000);
+		addWordEntry(pWORDENTRY);
 
 		// Debug code to check if something is left
 		// on the stack.
